@@ -8,7 +8,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    saveImage: null
+    saveImage: null,
+    getRequest: 'before'
   },
   //事件处理函数
   bindViewTap: function() {
@@ -17,12 +18,13 @@ Page({
     })
   },
   onLoad: function () {
+    console.log("onload")
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-      this.drawCanvas(this.data.userInfo)
+      this.drawCanvas(this.data.userInfo.avatarUrl,'userinfo-avatar1')
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
@@ -31,7 +33,7 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
-        this.drawCanvas(this.data.userInfo)
+        this.drawCanvas(this.data.userInfo.avatarUrl,'userinfo-avatar1')
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -42,7 +44,7 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-          this.drawCanvas(this.data.userInfo)
+          this.drawCanvas(this.data.userInfo.avatarUrl,'userinfo-avatar1')
         }
       })
     }
@@ -54,29 +56,49 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-    this.drawCanvas(this.data.userInfo)
+    this.drawCanvas(this.data.userInfo.avatarUrl,'userinfo-avatar1')
   },
-  drawCanvas: function (userInfo) {
-    let context = wx.createCanvasContext("userinfo-avatar1")
-    
-    context.drawImage(userInfo.avatarUrl,0,0,300,300)
-    context.draw()
-    context.setFillStyle('red')
-    context.fillRect(10, 10, 150, 75)
-    context.draw(true, res => {
-      console.log("request")
-      saveCanvas()
+  drawCanvas: function (url,id) {
+    let context = wx.createCanvasContext(id)
+    console.log(url)
+    // context.drawImage(url, 0, 0, 300, 300)
+    // // userInfo.avatarUrl
+    // context.draw()
+    // context.setFillStyle('red')
+    // context.fillRect(10, 10, 150, 75)
+    // context.draw(true, res => {
+    //   console.log("request")
+    //   this.setData({
+    //     getRequest: "after"
+    //   })
+    //   // this.saveCanvas()
+    // })
+    let tempPath = wx.downloadFile({
+      url: url,
+      success: res => {
+        context.drawImage(res.tempFilePath, 0, 0, 300, 300)
+        context.draw()
+        context.setFillStyle('red')
+        context.fillRect(10, 10, 150, 75)
+        context.draw(true, res => {
+          console.log("request")
+          this.setData({
+            getRequest: "after"
+          })
+          // this.saveCanvas()
+        })
+      }
     })
+    
   },
   saveCanvas: function(e) {
-    console.log(e)
     wx.canvasToTempFilePath({
-      x: 100,
-      y: 200,
+      x: 0,
+      y: 0,
       width: 300,
       height: 300,
-      destWidth: 100,
-      destHeight: 100,
+      destWidth: 300,
+      destHeight: 300,
       canvasId: 'userinfo-avatar1',
       success: res => {
         console.log(res.tempFilePath)
