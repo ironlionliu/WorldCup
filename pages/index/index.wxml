@@ -3,11 +3,15 @@
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
+      <canvas style="width: 300px; height: 200px; border: 1px solid #0f0" canvas-id='userinfo-avatar1'></canvas>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
+  <view id="save" bindtap="saveCanvas"> 保存图片 </view>
+  <image id="afterImage" src='{{saveImage}}'></image>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+  <!-- <map class="map" scale='5' include-points='[0,0]' show-location='true'></map> -->
 </view>
