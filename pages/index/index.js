@@ -153,7 +153,6 @@ Page({
     this.setData({
       selectedIcons: this.selectedIcons
     })
-
   },
 
   getStartPosition: function(e) {
@@ -165,7 +164,7 @@ Page({
     let dX = e.touches[0].pageX - this.startPositions[e.target.dataset.index][0]
     let dY = e.touches[0].pageY - this.startPositions[e.target.dataset.index][1]
     console.log(dX,dY)
-    this.selectedIcons[e.target.dataset.key].position = [dX+0, dY+0]
+    this.selectedIcons[e.target.dataset.key].position = [dX + 0 > 300 - 50 ? 300 - 50 : (dX + 0 < 0 ? 0 : dX + 0), dY + 0 > 300 - 50 ? 300 - 50 : (dY + 0 < 0 ? 0 : dY + 0)]
     this.setData({
       selectedIcons: this.selectedIcons
     })
