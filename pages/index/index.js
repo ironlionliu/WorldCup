@@ -109,8 +109,8 @@ Page({
       context.translate(this.selectedIcons[key].position[0] + this.selectedIcons[key].size[0] / 2, this.selectedIcons[key].position[1] + this.selectedIcons[key].size[1]/2)
       context.rotate(this.selectedIcons[key].rotate * Math.PI / 180)
       this.selectedIcons[key].path && context.drawImage(this.selectedIcons[key].path, -this.selectedIcons[key].size[0] / 2, -this.selectedIcons[key].size[1] / 2, this.selectedIcons[key].size[0], this.selectedIcons[key].size[1])
-      context.translate(-this.selectedIcons[key].position[0] - this.selectedIcons[key].size[0] / 2, -this.selectedIcons[key].position[1] - this.selectedIcons[key].size[1] / 2)
-      context.rotate(-this.selectedIcons[key].rotate * Math.PI / 180) 
+      context.rotate(-this.selectedIcons[key].rotate * Math.PI / 180)
+      context.translate(-this.selectedIcons[key].position[0] - this.selectedIcons[key].size[0] / 2, -this.selectedIcons[key].position[1] - this.selectedIcons[key].size[1] / 2)  
     }
     context.draw()
   },
