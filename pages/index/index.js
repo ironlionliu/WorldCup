@@ -43,6 +43,7 @@ Page({
     tagList: tagList,
     showIcons: icons.nations,
     currentTag: 'emblem',
+    currentImage: '',
     selectedIcons: {},
     animationData: {}
   },
@@ -102,19 +103,16 @@ Page({
     })
   },
   drawCanvas: function (e) {
-    console.log(e)
     let context = wx.createCanvasContext('userinfo-avatar1')
     context.drawImage(this.data.userInfo.avatarUrl, 0, 0, 300, 300)
-    for (let key in this.selectedIcons){
-      this.selectedIcons[key].path && context.drawImage(this.selectedIcons[key].path, this.selectedIcons[key].position[0], this.selectedIcons[key].position[1], 50, 50)
+    for (let key in this.selectedIcons) {
+      context.translate(this.selectedIcons[key].position[0] + this.selectedIcons[key].size[0] / 2, this.selectedIcons[key].position[1] + this.selectedIcons[key].size[1]/2)
+      context.rotate(this.selectedIcons[key].rotate * Math.PI / 180)
+      this.selectedIcons[key].path && context.drawImage(this.selectedIcons[key].path, -this.selectedIcons[key].size[0] / 2, -this.selectedIcons[key].size[1] / 2, this.selectedIcons[key].size[0], this.selectedIcons[key].size[1])
+      context.translate(-this.selectedIcons[key].position[0] - this.selectedIcons[key].size[0] / 2, -this.selectedIcons[key].position[1] - this.selectedIcons[key].size[1] / 2)
+      context.rotate(-this.selectedIcons[key].rotate * Math.PI / 180) 
     }
-    context.draw(res => {
-      console.log("request")
-      this.setData({
-        getRequest: "after"
-      })
-      // this.saveCanvas()
-    })
+    context.draw()
   },
 
   saveCanvas: function(e) {
@@ -148,8 +146,19 @@ Page({
     let data = e.target.dataset
     this.selectedIcons = this.selectedIcons ? this.selectedIcons : {}
     this.selectedIcons[data.tagname + data.id] = this.selectedIcons[data.tagname + data.id] ? this.selectedIcons[data.tagname + data.id] : {}
-    this.selectedIcons[data.tagname + data.id].path = this.selectedIcons[data.tagname + data.id].path ? null : data.path
-    this.selectedIcons[data.tagname + data.id].position = [0,0]
+    this.currentIcon = this.currentIcon ? this.currentIcon : data.tagname + data.id
+    this.selectedIcons[data.tagname + data.id] = {
+      path: this.selectedIcons[data.tagname + data.id].path ? null : data.path,
+      position: [0, 0],
+      size: [50, 50],
+      rotate: 0
+    }
+    let tempArr = []
+    for(let key in this.selectedIcons){
+      this.selectedIcons[key].path ? tempArr.push(key) : ''
+    }
+    this.currentIcon = this.selectedIcons[data.tagname + data.id].path ? data.tagname + data.id : tempArr[tempArr.length-1]
+    console.log(this.selectedIcons, this.currentIcon)
     this.setData({
       selectedIcons: this.selectedIcons
     })
@@ -157,19 +166,45 @@ Page({
 
   getStartPosition: function(e) {
     this.startPositions = this.startPositions ? this.startPositions : {}
-    this.startPositions[e.target.dataset.index] = this.startPositions[e.target.dataset.index] ? this.startPositions[e.target.dataset.index] : [e.touches[0].pageX, e.touches[0].pageY]
+    this.startPositions[e.target.dataset.key] = this.startPositions[e.target.dataset.key] ? this.startPositions[e.target.dataset.key] : [e.touches[0].pageX, e.touches[0].pageY]
+    this.currentIcon = e.target.dataset.key
   },
 
   move: function(e) {
-    let dX = e.touches[0].pageX - this.startPositions[e.target.dataset.index][0]
-    let dY = e.touches[0].pageY - this.startPositions[e.target.dataset.index][1]
+    let [width,height] = this.selectedIcons[e.target.dataset.key].size
+    let dX = e.touches[0].pageX - this.startPositions[e.target.dataset.key][0]
+    let dY = e.touches[0].pageY - this.startPositions[e.target.dataset.key][1]
     console.log(dX,dY)
-    this.selectedIcons[e.target.dataset.key].position = [dX + 0 > 300 - 50 ? 300 - 50 : (dX + 0 < 0 ? 0 : dX + 0), dY + 0 > 300 - 50 ? 300 - 50 : (dY + 0 < 0 ? 0 : dY + 0)]
+    this.selectedIcons[e.target.dataset.key].position = [dX + 0 > 300 - width ? 300 - width : (dX + 0 < 0 ? 0 : dX + 0), dY + 0 > 300 - height ? 300 - height : (dY + 0 < 0 ? 0 : dY + 0)]
+    this.setData({
+      selectedIcons: this.selectedIcons,
+    })
+    this.currentIcon = e.target.dataset.key
+  },
+
+  getEndPosition: function(e) {
+    this.currentIcon = e.target.dataset.key
+  },
+
+  changeSize: function(e) {
+    if(!this.currentIcon) return
+    let speed = 10, ratio = this.selectedIcons[this.currentIcon].size[1] / this.selectedIcons[this.currentIcon].size[0]
+    if (e.target.dataset.direction == '-'){
+      this.selectedIcons[this.currentIcon].size = this.selectedIcons[this.currentIcon].size[0] < 11 ? this.selectedIcons[this.currentIcon].size : this.selectedIcons[this.currentIcon].size.map((item, index) => {return item - speed*(1-(1-ratio)*index)})
+    }else{
+      this.selectedIcons[this.currentIcon].size = this.selectedIcons[this.currentIcon].size[0] > 149 ? this.selectedIcons[this.currentIcon].size : this.selectedIcons[this.currentIcon].size.map((item, index) => {return item + speed * (1 - (1 - ratio) * index) })
+    }
     this.setData({
       selectedIcons: this.selectedIcons
     })
   },
 
-  getEndPosition: function(e) {
+  iRotate: function(e) {
+    if (!this.currentIcon) return
+    let speed = 5
+    this.selectedIcons[this.currentIcon].rotate += (e.target.dataset.direction == '-' ? -speed : speed)
+    this.setData({
+      selectedIcons: this.selectedIcons
+    })
   }
 })

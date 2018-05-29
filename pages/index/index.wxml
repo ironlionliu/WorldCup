@@ -4,7 +4,7 @@
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <view bindtap="bindViewTap" class="userinfo-avatar" style='background-image: url({{userInfo.avatarUrl}})'>
-      <image class='selectedIcons' wx:for="{{selectedIcons}}" wx:key="selectedIcons" src='{{item.path}}' data-key='{{index}}' catchtouchmove='move' catchtouchstart='getStartPosition' catchtouchend='getEndPosition' style="left:{{item.position[0]+'px'}};top:{{item.position[1]+'px'}}"></image> 
+      <image class='selectedIcons' wx:for="{{selectedIcons}}" wx:key="selectedIcons" src='{{item.path}}' data-key='{{index}}' catchtouchmove='move' catchtouchstart='getStartPosition' catchtouchend='getEndPosition' style="left:{{item.position[0]+'px'}};top:{{item.position[1]+'px'}};width:{{item.size[0]+'px'}};height:{{item.size[1]+'px'}};transform:rotate({{item.rotate+'deg'}})"></image> 
       <!-- animation="{{item.animationData}}"  -->
        <!-- <image style='width:50px;height:50px;' src='../../images/cup/cup.gif' animation="{{animationData}}"></image> -->
       </view>
@@ -15,6 +15,10 @@
         </view>
         <image wx:for="{{showIcons}}" wx:key="{{currentTag}}" src="{{item[currentTag + 'Path']}}" data-tagname="{{currentTag}}" data-id="{{item.id}}" data-path="{{item[currentTag + 'Path']}}" bindtap='selectOrNot' style='width:80px;height:80px'>
         </image>
+      </view>
+      <view>
+      <view style='display:flex'>缩放<button data-direction='-' bindtap='changeSize'>-</button><button data-direction='+' bindtap='changeSize'>+</button></view>
+      <view style='display:flex'>旋转<button data-direction='-' bindtap='iRotate'>-</button><button data-direction='+' bindtap='iRotate'>+</button></view>
       </view>
       <view id="draw" bindtap="drawCanvas" data-bgUrl='{{userInfo.avatarUrl}}'> 保存图片 </view>
       <canvas style="width: 300px; height: 300px; border: 1px solid #0f0" canvas-id='userinfo-avatar1'></canvas>
