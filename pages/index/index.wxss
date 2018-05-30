@@ -44,3 +44,7 @@
   height: 50px;
   position: absolute
 }
+
+button{
+  margin: 5px;
+}

@@ -36,6 +36,7 @@ Page({
   data: {
     motto: 'Hello WorldCup, code changed',
     userInfo: {},
+    avatarUrl: '',
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     saveImage: null,
@@ -57,7 +58,8 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        hasUserInfo: true,
+        avatarUrl: app.globalData.userInfo.avatarUrl
       })
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -66,11 +68,11 @@ Page({
         wx.downloadFile({
           url: res.userInfo.avatarUrl,
           success: resTemp => {
-            res.userInfo.avatarUrl = resTemp.tempFilePath
             app.globalData.userInfo = res.userInfo
             this.setData({
               userInfo: res.userInfo,
-              hasUserInfo: true
+              hasUserInfo: true,
+              avatarUrl: resTemp.tempFilePath
             })
           }
         })
@@ -82,11 +84,11 @@ Page({
           wx.downloadFile({
             url: res.userInfo.avatarUrl,
             success: resTemp => {
-              res.userInfo.avatarUrl = resTemp.tempFilePath
               app.globalData.userInfo = res.userInfo
               this.setData({
                 userInfo: res.userInfo,
-                hasUserInfo: true
+                hasUserInfo: true,
+                avatarUrl: resTemp.tempFilePath
               })
             }
           })
@@ -104,7 +106,7 @@ Page({
   },
   drawCanvas: function (e) {
     let context = wx.createCanvasContext('userinfo-avatar1')
-    context.drawImage(this.data.userInfo.avatarUrl, 0, 0, 300, 300)
+    context.drawImage(this.data.avatarUrl, 0, 0, 300, 300)
     for (let key in this.selectedIcons) {
       context.translate(this.selectedIcons[key].position[0] + this.selectedIcons[key].size[0] / 2, this.selectedIcons[key].position[1] + this.selectedIcons[key].size[1]/2)
       context.rotate(this.selectedIcons[key].rotate * Math.PI / 180)
@@ -126,6 +128,9 @@ Page({
       canvasId: 'userinfo-avatar1',
       success: res => {
         console.log(res.tempFilePath)
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath
+        })
         this.setData({
           saveImage: res.tempFilePath
         })
@@ -205,6 +210,17 @@ Page({
     this.selectedIcons[this.currentIcon].rotate += (e.target.dataset.direction == '-' ? -speed : speed)
     this.setData({
       selectedIcons: this.selectedIcons
+    })
+  },
+
+  imageFromAlbum: function(e) {
+    wx.chooseImage({
+      count: 1,
+      success: res => {
+        this.setData({
+          avatarUrl: res.tempFilePaths[0]
+        })
+      }
     })
   }
 })
