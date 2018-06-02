@@ -3,11 +3,34 @@
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <view bindtap="bindViewTap" class="userinfo-avatar" style='background-image: url({{avatarUrl}})'>
+      <image class='selectedIcons' wx:for="{{selectedIcons}}" wx:key="selectedIcons" src='{{item.path}}' data-key='{{index}}' catchtouchmove='move' catchtouchstart='getStartPosition' catchtouchend='getEndPosition' style="left:{{item.position[0]+'px'}};top:{{item.position[1]+'px'}};width:{{item.size[0]+'px'}};height:{{item.size[1]+'px'}};transform:rotate({{item.rotate+'deg'}})"></image> 
+      <!-- animation="{{item.animationData}}"  -->
+       <!-- <image style='width:50px;height:50px;' src='../../images/cup/cup.gif' animation="{{animationData}}"></image> -->
+      </view>
+      <button bindtap='imageFromAlbum'>选择图片</button>
+      <view class='showroom'>
+        <button wx:for="{{tagList}}" wx:key="*this" data-tagname="{{item}}" bindtap='switchTag'>{{item}}</button>
+        <view wx:for="{{showIcons}}" wx:key="{{currentTag}}">
+         {{item[currentTag + 'Path']}}
+        </view>
+        <view style='border:1px solid red;width:300px;height:300px;margin:5px auto'>
+        <image wx:for="{{showIcons}}" wx:key="{{currentTag}}" src="{{item[currentTag + 'Path']}}" data-tagname="{{currentTag}}" data-id="{{item.id}}" data-path="{{item[currentTag + 'Path']}}" bindtap='selectOrNot' style='width:80px;height:80px'>
+        </image>
+      </view>
+      </view>
+      <view style='margin-top:300px;'>
+      <view style='display:flex'>缩放<button data-direction='-' bindtap='changeSize'>-</button><button data-direction='+' bindtap='changeSize'>+</button></view>
+      <view style='display:flex'>旋转<button data-direction='-' bindtap='iRotate'>-</button><button data-direction='+' bindtap='iRotate'>+</button></view>
+      </view>
+      <view id="draw" bindtap="drawCanvas" data-bgUrl='{{userInfo.avatarUrl}}'> 保存图片 </view>
+      <canvas style="width: 300px; height: 300px; border: 1px solid #0f0" canvas-id='userinfo-avatar1'></canvas>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
+  <view id="save" bindtap="saveCanvas"> 导出图片 </view>
+  <image id="afterImage" src='{{saveImage}}'></image>
   <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+    <text class="user-motto">{{motto}}{{getRequest}}</text>
   </view>
 </view>
