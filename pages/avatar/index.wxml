@@ -1,0 +1,50 @@
+<view class="container">
+	<view wx:if="{{!isReady}}" class="loadpage">
+		<canvas canvas-id="loadCanvas" class="loadAnimate">
+			<image src="../../images/WorldCup2018.png" mode="aspectFit" class="animateCup"></image>
+		</canvas>
+		<view class="loadText">
+			页面加载中
+			<text class='first-point'>.</text>
+			<text class='second-point'>.</text>
+			<text class='third-point'>.</text>
+			<text class='fourth-point'>.</text>
+		</view>
+	</view>
+	<view wx:else class="main">
+		<view class="userInfo">
+			<text class="title">{{userInfo.nickName}}</text>
+			<text class="content">
+				为您的头像添加喜爱球队的logo吧！
+			</text>
+		</view>
+		<view class="userAvatar">
+			<view class="side">
+				<text class="content">放大</text>
+				<view class="bar"></view>
+				<text class="content">缩小</text>
+			</view>
+			<view class="middle">
+				<image class="image-avatar" src="{{avatarPath}}" mode="widthFix"></image>
+			</view>
+			<view class="side">
+				<text class="content">左旋</text>
+				<view class="bar">
+					<view class="sliding-block"></view>
+					<view class="tips"><text>{{rotateDeg}}</text></view>
+				</view>
+				<text class="content">右旋</text>
+			</view>
+		</view>
+		<view class="buttonList">
+			<view class="button click">
+				<text class="countries" decode="{{true}}">国&emsp;旗</text>
+			</view>
+			<view class="button"><text class="teams" decode="{{true}}">队&emsp;旗</text></view>
+			<view class="button"><text class="others" decode="{{true}}">其&emsp;它</text></view>
+		</view>
+		<view class="logo">
+
+		</view>
+	</view>
+</view>

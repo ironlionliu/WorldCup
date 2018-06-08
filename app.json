@@ -1,11 +1,12 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/avatar/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#0e2863",
     "navigationBarTitleText": "WorldCup",
     "navigationBarTextStyle":"black"
   }
