@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/iconCard/iconCard",
     "pages/index/index",
     "pages/logs/logs"
   ],

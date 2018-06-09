@@ -1,0 +1,23 @@
+<!--卡片槽-->
+
+<view class="iconCards" bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <view wx:for="{{cards}}" wx:for-item="card" class="{{card.className}}">
+        <view class="card-top">
+        {{card.title}}
+        </view>
+        <view class="card-icons" bindtap="test">
+            <view wx:for="{{card.icons}}" wx:for-item="icon" class="card-icon">
+                <image class="icon-img" mode="widthFix" src="{{icon}}"></image>
+            </view>
+        </view>
+        <image class="card-bottom" mode="widthFix" src="../../images/official_bottom_on.png">
+        </image>
+    </view>
+    <view class="cards-pre" bindtap="mypre">
+    </view>
+    <view class="cards-next" bindtap="mynext">
+    </view>    
+</view>
+
+
+

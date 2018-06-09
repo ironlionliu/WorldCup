@@ -1,0 +1,118 @@
+
+.iconCards{
+    position: relative;
+    margin: 500rpx auto;
+    width: 360rpx;
+    height: 500rpx;
+}
+.card-left{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 50%;
+    transform: translate(-50%,0) scale(0.9);
+    opacity: 0.7;
+    transition: transform 0.5s;
+}
+.card-lefthidden{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 50%;
+    transform: translate(-150%,0) scale(0.9);
+    /* transition: transform 0.5s; */
+}
+.card-right{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    transform: translate(50%,0) scale(0.9);
+    opacity: 0.7;
+    transition: transform 0.5s;
+}
+.card-righthidden{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    transform: translate(150%,0) scale(0.9);
+    /* transition: transform 0.5s; */
+}
+.card{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+}
+.card-top{
+    margin: 0 auto;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(203,191,149);
+    text-align: center;
+    color: white;
+}
+.card-icons{
+    margin: 0 auto;
+    height: 80%;
+    position: relative;
+    background: rgb(250, 247, 242);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.card-icon{
+    position: relative;
+    width: 25%;
+    height: 50rpx;
+    overflow: hidden;
+    text-align: center;
+}
+.icon-img {
+    width: 50rpx;
+    height: auto;
+}
+.card-bottom{
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 0;
+    transform: translate(0,100%);
+}
+
+.cards-pre, .cards-next{
+    
+    margin-top: 255rpx;
+    transform: translate(0, -35%);
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 25rpx;
+    background: rgba(0,0,0,0.3);
+}
+.cards-pre {
+    float: left;
+    margin-left: -40%;
+}
+.cards-next {
+    float: right;
+    margin-right: -40%;
+}
+.cards-pre::after, .cards-next::after{
+    content: "<";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.3);border-radius: 25rpx;
+    font-size: 25rpx;
+    line-height: 50rpx;
+}
+.cards-next::after{
+    content: ">";
+}
