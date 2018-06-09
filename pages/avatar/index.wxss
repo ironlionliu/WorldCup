@@ -1,0 +1,264 @@
+/**index.wxss**/
+html{
+  padding:0;
+  margin:0;
+
+}
+.container {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-image: url("http://139.199.10.189/images/background/Russian.png");
+}
+.loadpage {
+  width: 100%;
+  margin-top: 30%;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.loadAnimate{
+  width: 320px;
+  height: 160px;
+}
+
+.animateCup {
+  height: 100px;
+  margin-top: 30px;
+}
+
+.loadText {
+  margin-top: 10px;
+}
+
+.first-point {
+  animation-name: afirst;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  visibility: hidden;
+}
+
+.second-point {
+  animation: asceond 4s infinite;
+  visibility: hidden;
+}
+
+.third-point {
+  animation-name: athird;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  visibility: hidden;
+}
+
+.fourth-point {
+  animation-name: afourth;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  visibility: hidden;
+}
+
+@keyframes afirst {
+  0%{
+    visibility: hidden;
+  }
+  20%{
+    visibility: hidden;
+  }
+  100%{
+    visibility: visible;
+  }
+}
+
+@keyframes asceond {
+  0%{
+    visibility: hidden;
+  }
+  40%{
+    visibility: hidden;
+  }
+  100%{
+    visibility: visible;
+  }
+}
+
+@keyframes athird {
+  0%{
+    visibility: hidden;
+  }
+  60%{
+    visibility: hidden;
+  }
+  100%{
+    visibility: visible;
+  }
+}
+
+@keyframes afourth {
+  0%{
+    visibility: hidden;
+  }
+  80%{
+    visibility: hidden;
+  }
+  100%{
+    visibility: visible;
+  }
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  justify-content: flex-start;
+}
+
+.title {
+  padding-top: 5%;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.content {
+  line-height: 8px;
+  text-align: center;
+  color: white;
+}
+.avatar {
+  height: 200px;
+  width: 300px;
+  display: block;
+}
+.userAvatar {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+
+.middle {
+  width: 160px;
+}
+
+.image-avatar {
+  width: 100%;
+}
+
+.userAvatarCanvas {
+  width: 160px;
+  height: 200px;
+}
+
+.side{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bar {
+  height: 100px;
+  border-left: 2px solid rgb(255, 255, 255);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.sliding-block {
+  width: 28px;
+  height: 10px;
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  transform: translateX(-14px);
+}
+
+.tips {
+  width: 20px;
+  color: red;
+  transform: translateX(-8px);
+}
+
+.buttonList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 30px;
+  color: white;
+  width: 100%;
+  border-top: 1px solid rgb(15, 26, 199);
+}
+.button {
+  display: flex;
+  height: 30px;
+  line-height: 30px;
+  border-collapse: collapse;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  background-color: rgb(25, 26, 199);
+}
+.countries {
+  display: block;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+}
+.teams {
+  display: block;
+  border-right: 1px solid rgb(255, 255, 255);
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+}
+.others{
+  display: block;
+  width: 100%;
+}
+.click {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.logo{
+  flex-grow: 1;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.map{
+  width: 100%;
+  height: 300px;
+}
+.showroom{
+  width: 100%;
+  height: 300px;
+}
+.showroom button{
+  display: inline-flex
+}
+.selectedIcons{
+  width: 50px;
+  height: 50px;
+  position: absolute
+}

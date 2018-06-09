@@ -135,14 +135,13 @@ Page({
         this.setData({ "cards": this.data.cards });
     },
     mypre: function(e){
-        this.turnTo(-1);
+        this.turnTo(1);
     },
     mynext: function(e){
-        this.turnTo(1);
+        this.turnTo(-1);
     },
     test: function(e){
         console.log(e);
-        console.log("fuck");
     },
     turnTo: function (orientation) {
         let length = this.data.cards.length;

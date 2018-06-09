@@ -10,10 +10,8 @@
   </view>
   <view id="save" bindtap="saveCanvas"> 保存图片 </view>
   <image id="afterImage" src='{{saveImage}}'></image>
-
   <image id="header" src='{{testimg}}'></image>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <!-- <map class="map" scale='5' include-points='[0,0]' show-location='true'></map> -->
 </view>

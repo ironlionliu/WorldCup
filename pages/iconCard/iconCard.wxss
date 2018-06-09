@@ -86,7 +86,6 @@
 }
 
 .cards-pre, .cards-next{
-    
     margin-top: 255rpx;
     transform: translate(0, -35%);
     width: 50rpx;

@@ -1,13 +1,14 @@
 {
   "pages":[
-    "pages/iconCard/iconCard",
     "pages/index/index",
+    "pages/iconCard/iconCard",
+    "pages/avatar/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#0e2863",
+    "navigationBarTitleText": "WorldCup",
     "navigationBarTextStyle":"black"
   }
 }
