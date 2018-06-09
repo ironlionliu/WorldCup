@@ -2,6 +2,7 @@
   "pages":[
     "pages/index/index",
     "pages/iconCard/iconCard",
+    "pages/cover/cover",
     "pages/avatar/index",
     "pages/logs/logs"
   ],
